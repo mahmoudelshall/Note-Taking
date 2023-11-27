@@ -6,12 +6,17 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+
 /**
  * @OA\OpenApi(
  *      @OA\Info(
  *          version="1.0.0",
  *          title="Note Taking",
  *          description="Note Taking"
+ *      ),
+ *     @OA\Server(
+ *          description="Local development server",
+ *          url="http://127.0.0.1:8000"
  *      ),
  *      @OA\Components(
  *          @OA\SecurityScheme(
