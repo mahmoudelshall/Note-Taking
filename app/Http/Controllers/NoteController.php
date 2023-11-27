@@ -6,16 +6,16 @@ use App\Models\Note;
 use Illuminate\Http\Request;
 
 /**
- * Class NoteController
- * @package App\Http\Controllers
- * @OA\Tag(name="Notes")
+ * @OA\Tag(
+ *     name="Notes",
+ *     description="Endpoints related to Notes"
+ * )
  */
-
 class NoteController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/notes",
+     *     path="/api/notes",
      *     summary="Get all notes for the logged in user",
      *     tags={"Notes"},
      *     security={ {"bearerAuth": {}} },
@@ -34,7 +34,7 @@ class NoteController extends Controller
 
    /**
      * @OA\Post(
-     *     path="/notes",
+     *     path="/api/notes",
      *     summary="Create a new note for the logged in user",
      *     tags={"Notes"},
      *     security={ {"bearerAuth": {}} },
@@ -67,7 +67,7 @@ class NoteController extends Controller
 
    /**
      * @OA\Get(
-     *     path="/notes/{id}",
+     *     path="/api/notes/{id}",
      *     summary="Get a specific note for the logged in user",
      *     tags={"Notes"},
      *     security={ {"bearerAuth": {}} },
@@ -101,7 +101,7 @@ class NoteController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/notes/{id}",
+     *     path="/api/notes/{id}",
      *     summary="Update a specific note for the logged in user",
      *     tags={"Notes"},
      *     security={ {"bearerAuth": {}} },
@@ -148,7 +148,7 @@ class NoteController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/notes/{id}",
+     *     path="/api/notes/{id}",
      *     summary="Delete a specific note for the logged in user",
      *     tags={"Notes"},
      *     security={ {"bearerAuth": {}} },

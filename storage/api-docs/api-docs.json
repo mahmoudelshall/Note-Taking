@@ -6,13 +6,170 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/notes": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User's name",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "description": "User's email",
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "description": "User's password",
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Log in a user",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "User's email",
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "description": "User's password",
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logged in successfully"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "your_jwt_token"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid Credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid Credentials"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Log out a user",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notes": {
             "get": {
                 "tags": [
                     "Notes"
                 ],
                 "summary": "Get all notes for the logged in user",
-                "operationId": "9393a3bea0b52c3edef159a70977cbbe",
+                "operationId": "9a95bde5931986ad60b9f7f414ec425e",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -36,7 +193,7 @@
                     "Notes"
                 ],
                 "summary": "Create a new note for the logged in user",
-                "operationId": "09e1e6df7c7704264ca5dff3c1283d86",
+                "operationId": "d133c170557b4935898f2e444e0fd418",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -65,13 +222,13 @@
                 ]
             }
         },
-        "/notes/{id}": {
+        "/api/notes/{id}": {
             "get": {
                 "tags": [
                     "Notes"
                 ],
                 "summary": "Get a specific note for the logged in user",
-                "operationId": "4ff1db70f3fbc8ab14e315c81fbff433",
+                "operationId": "4f26c25d4040d0ef0fa8d8a5ea9fa4da",
                 "parameters": [
                     {
                         "name": "id",
@@ -108,7 +265,7 @@
                     "Notes"
                 ],
                 "summary": "Update a specific note for the logged in user",
-                "operationId": "29a9163f38861fad93ae0510c516c5cd",
+                "operationId": "c7e6224fadd6d82b81ded7615279a15c",
                 "parameters": [
                     {
                         "name": "id",
@@ -154,7 +311,7 @@
                     "Notes"
                 ],
                 "summary": "Delete a specific note for the logged in user",
-                "operationId": "193c1092c012659cba45810e88e7a619",
+                "operationId": "99b63679b2822651f8f0ae585f927f0b",
                 "parameters": [
                     {
                         "name": "id",
@@ -263,8 +420,12 @@
     },
     "tags": [
         {
+            "name": "Auth",
+            "description": "Endpoints related to user authentication"
+        },
+        {
             "name": "Notes",
-            "description": "Class NoteController"
+            "description": "Endpoints related to Notes"
         }
     ]
 }
