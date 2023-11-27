@@ -1,0 +1,270 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Note Taking",
+        "description": "Note Taking",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/notes": {
+            "get": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Get all notes for the logged in user",
+                "operationId": "9393a3bea0b52c3edef159a70977cbbe",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Note"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Create a new note for the logged in user",
+                "operationId": "09e1e6df7c7704264ca5dff3c1283d86",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewNote"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Note"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/notes/{id}": {
+            "get": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Get a specific note for the logged in user",
+                "operationId": "4ff1db70f3fbc8ab14e315c81fbff433",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Note"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Update a specific note for the logged in user",
+                "operationId": "29a9163f38861fad93ae0510c516c5cd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateNote"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Note"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Notes"
+                ],
+                "summary": "Delete a specific note for the logged in user",
+                "operationId": "193c1092c012659cba45810e88e7a619",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NewNote": {
+                "required": [
+                    "title",
+                    "content"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Title of the note",
+                        "type": "string"
+                    },
+                    "content": {
+                        "description": "Content of the note",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateNote": {
+                "properties": {
+                    "title": {
+                        "description": "Title of the note",
+                        "type": "string"
+                    },
+                    "content": {
+                        "description": "Content of the note",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Note": {
+                "required": [
+                    "id",
+                    "user_id",
+                    "title",
+                    "content",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Note ID",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "description": "ID of the user who owns the note",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "Title of the note",
+                        "type": "string"
+                    },
+                    "content": {
+                        "description": "Content of the note",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Creation time of the note",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Update time of the note",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Notes",
+            "description": "Class NoteController"
+        }
+    ]
+}
